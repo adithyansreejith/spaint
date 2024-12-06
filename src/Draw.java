@@ -24,34 +24,81 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class Draw {
-
 	Canvas canvas;
-	Color color = Color.WHITE;
-	JButton clearButton, blackButton, blueButton, greenButton, redButton,
-			colorPicker, magentaButton, grayButton, orangeButton, yellowButton,
-			pinkButton, cyanButton, lightGrayButton, saveButton, loadButton,
-			saveAsButton, rectangle, pencil, undoButton, redoButton;
-	private JFileChooser fileChooser;
-	private File file;
-	private Icon save = new ImageIcon(getClass().getResource("save.png"));
-	private Icon undo = new ImageIcon(getClass().getResource("undo.png"));
-	private Icon redo = new ImageIcon(getClass().getResource("redo.png"));
-	private Icon pencilIcon = new ImageIcon(getClass()
-			.getResource("pencil.png"));
-	private Icon rect = new ImageIcon(getClass().getResource("rect.png"));
-	private int saveCounter = 0;
-	private JLabel filenameBar, thicknessStat;
-	private JSlider thicknessSlider;
-	private int width, height;
-	ChangeListener thick = new ChangeListener() {
-		public void stateChanged(ChangeEvent e) {
-			thicknessStat.setText(String.format("%s",
-					thicknessSlider.getValue()));
-			canvas.setThickness(thicknessSlider.getValue());
-		}
-	};
-	ActionListener listener = new ActionListener() {
 
+Color color = Color.WHITE;
+
+JButton clearButton, blackButton, blueButton, greenButton, redButton,
+
+        colorPicker, magentaButton, grayButton, orangeButton, yellowButton,
+
+        pinkButton, cyanButton, lightGrayButton, saveButton, loadButton,
+
+        saveAsButton, rectangle, pencil, undoButton, redoButton;
+
+private JFileChooser fileChooser;
+
+private File file;
+
+private Icon save;
+
+private Icon undo;
+
+private Icon redo;
+
+private Icon pencilIcon;
+
+private Icon rect;
+
+private int saveCounter = 0;
+
+private JLabel filenameBar, thicknessStat;
+
+private JSlider thicknessSlider;
+
+private int width, height;
+
+
+public Draw() {
+    try {
+        save = new ImageIcon(getClass().getResource("save.png"));
+    } catch (Exception e) {
+        System.err.println("Error loading save icon: " + e.getMessage());
+        save = null; // or set to a default icon
+    }
+    try {
+        undo = new ImageIcon(getClass().getResource("undo.png"));
+    } catch (Exception e) {
+        System.err.println("Error loading undo icon: " + e.getMessage());
+        undo = null; // or set to a default icon
+    }
+    try {
+        redo = new ImageIcon(getClass().getResource("redo.png"));
+    } catch (Exception e) {
+        System.err.println("Error loading redo icon: " + e.getMessage());
+        redo = null; // or set to a default icon
+    }
+    try {
+        pencilIcon = new ImageIcon(getClass().getResource("pencil.png"));
+    } catch (Exception e) {
+        System.err.println("Error loading pencil icon: " + e.getMessage());
+        pencilIcon = null; // or set to a default icon
+    }
+    try {
+        rect = new ImageIcon(getClass().getResource("rect.png"));
+    } catch (Exception e) {
+        System.err.println("Error loading rectangle icon: " + e.getMessage());
+        rect = null; // or set to a default icon
+    }
+}
+
+ChangeListener thick = new ChangeListener() {
+    public void stateChanged(ChangeEvent e) {
+        thicknessStat.setText(String.format("%s", thicknessSlider.getValue()));
+        canvas.setThickness(thicknessSlider.getValue());
+    }
+};
+	ActionListener listener = new ActionListener() {
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == clearButton) {
 				canvas.clear();
